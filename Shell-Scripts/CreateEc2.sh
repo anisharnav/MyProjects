@@ -1,6 +1,12 @@
 #!/bin/bash
 set -euo pipefail
 
+>> Info
+command -v aws = which aws
+In summary, command -v aws &> /dev/null checks if the aws command is available in the current environment without producing any visible output.
+It's commonly used in scripts for conditional checks or to ensure a command is available before attempting to use it.
+Info
+
 check_awscli() {
     if ! command -v aws &> /dev/null; then
         echo "AWS CLI is not installed. Please install it first." >&2
@@ -59,7 +65,7 @@ create_ec2_instance() {
     )
 
     if [[ -z "$instance_id" ]]; then
-        echo "Failed to create EC2 instance." >&2
+        echo "Failed to create EC2 instance." >&2    
         exit 1
     fi
 
