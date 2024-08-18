@@ -14,3 +14,4 @@ do
                 echo "CRITICAL for $file_system"
         fi
 done
+.
