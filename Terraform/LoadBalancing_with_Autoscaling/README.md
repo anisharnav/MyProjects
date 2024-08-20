@@ -1,1 +1,1 @@
-In this Project, we will automate the end to end Vpc Peering Process across regions using Terraform.
+In this Project, we will automate the end to end load balancing with autoscaling using terraform with custom vpc.
