@@ -1,0 +1,27 @@
+---
+- name: download tmocat package
+  become: yes
+  get_url:
+    url: https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.93/bin/apache-tomcat-9.0.93.tar.gz
+    dest: /opt/tomcat/apache-tomcat-9.0.93.tar.gz
+- name: unarchive tomcat package
+  unarchive:
+    src: /opt/tomcat/apache-tomcat-9.0.93.tar.gz
+    dest: /opt/tomcat/apache-tomcat
+    mode: 0755
+    remote_src: yes
+    group: tomcat
+    owner: tomcat
+- name: Create link files for Tomcat Server up
+  file:
+    src: /opt/tomcat/apache-tomcat/apache-tomcat-9.0.93/bin/startup.sh
+    dest: /usr/local/bin/tomcatup
+    mode: "0755"
+    state: link
+
+- name: Create link files for Tomcat Server down
+  file:
+    src: /opt/tomcat/apache-tomcat/apache-tomcat-9.0.93/bin/shutdown.sh
+    dest: /usr/local/bin/tomcatdown
+    mode: "0755"
+    state: link

@@ -1,0 +1,7 @@
+---
+- name: configure tomcat
+  copy: 
+    src: files/tomcat-users.xml
+    dest: /opt/tomcat/apache-tomcat/apache-tomcat-9.0.93/conf
+    mode: "0755"  
+  notify: start tomcat

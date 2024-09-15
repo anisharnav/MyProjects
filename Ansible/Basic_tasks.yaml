@@ -1,0 +1,62 @@
+---
+- name: Performing Basic Tasks - <Name of my playbook>
+  hosts: all
+  vars:
+    users_to_delete:
+      - adarsh
+      - anish
+      - shruti
+
+  tasks:
+    - name: run a shell command
+      shell: echo "Hello World!"
+      register: Print
+
+    - name: Show me uptime
+      shell: uptime
+      register: Uptime
+
+    - name: show me disk usage
+      shell: df -hT
+      register: Disk
+
+   - name: Delete users
+      become: yes
+      tags: skip_task 
+      user:
+        state: absent
+        remove: yes
+        name: "{{item}}"
+      loop: "{{users_to_delete}}"
+        
+
+    - name: Add user
+      become: yes
+      user:
+        name: adarsh
+
+    - name: Create Directory
+      become: yes
+      file:
+        dest: /home/adarsh/test
+        state: directory
+        mode: '0755'
+        owner: adarsh
+        group: adarsh
+
+    - name: Create file
+      become: yes
+      file:
+        dest: /home/adarsh/test/a.txt
+        state: touch
+        mode: '0755'
+        owner: adarsh
+        group: adarsh 
+
+
+    - name: Display the command output
+      debug:
+        msg:
+          - "{{Print.stdout}}"
+          - "{{Uptime.stdout}}"
+          - "{{Disk.stdout_lines}}"

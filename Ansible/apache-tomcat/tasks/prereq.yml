@@ -1,0 +1,24 @@
+---
+- name: install jdk
+  become: yes
+  apt:
+    name: default-jdk
+    state: present
+- name: create tomcat group
+  become: yes
+  group:
+    name: tomcat
+    state: present
+- name: create tomcat user
+  become: yes
+  user:
+    name: tomcat
+    group: tomcat
+- name: create installation directory for tomcat
+  become: yes
+  file:
+    dest: /opt/tomcat/apache-tomcat
+    owner: tomcat
+    group: tomcat
+    mode: "0755"
+    state: directory

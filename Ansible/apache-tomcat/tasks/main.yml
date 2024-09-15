@@ -1,0 +1,10 @@
+---
+# tasks file for apache-tomcat
+- name: prerequisite for tomcat install
+  import_tasks: prereq.yml
+
+- name: install tomcat
+  import_tasks: install.yml
+
+- name: configure tomcat
+  import_tasks: configure.yml
