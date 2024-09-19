@@ -15,9 +15,6 @@ pipeline {
             steps {
                 // Checkout the source code from the repository
               sh  'git clone https://github.com/anisharnav/MyProjects.git'
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
             }
         }
         stage('Build Docker Image') {
@@ -27,9 +24,7 @@ pipeline {
                     docker build -t $IMAGE_NAME .
                     '''
                 }
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
+                
             }
         }
         stage('Login to Docker Hub') {
@@ -39,9 +34,7 @@ pipeline {
                     echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
                     '''
                 }
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
+                
             }
         }
         stage('Push Docker Image') {
@@ -51,9 +44,7 @@ pipeline {
                     docker push $IMAGE_NAME
                     '''
                 }
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
+                
             }
         }
         stage('Pull Docker Image') {
@@ -63,9 +54,7 @@ pipeline {
                     docker pull $IMAGE_NAME
                     '''
                 }
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
+                
             }
         }
         stage('Run Docker Container') {
@@ -75,9 +64,7 @@ pipeline {
                     docker run -d -p 8081:80 --name my-app-container $IMAGE_NAME
                     '''
                 }
-                script {
-                    echo "This stage was triggered by user: ${env.BUILD_USER}"
-                }
+                
             }
         }
     }
